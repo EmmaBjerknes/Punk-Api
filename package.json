@@ -1,0 +1,20 @@
+{
+  "name": "punk-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "comp": "sass src/scss:dist/css && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmaBjerknes/Punk-Api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmaBjerknes/Punk-Api/issues"
+  },
+  "homepage": "https://github.com/EmmaBjerknes/Punk-Api#readme"
+}
