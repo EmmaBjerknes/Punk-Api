@@ -21,7 +21,9 @@ buttonSearch.addEventListener("click",async (event) => {
     event.preventDefault();
     wrapper.innerHTML= "";
     if(inputQueryString.value.length > 0){
-        getBeerData("?food=", inputQueryString.value).then((beer)=>{
+        let foodString = remakeString(inputQueryString.value);
+
+        getBeerData("?food=", foodString).then((beer)=>{
             const arrLength : number = beer.length;
             createCard(beer, arrLength);
         });
@@ -30,6 +32,11 @@ buttonSearch.addEventListener("click",async (event) => {
     };
 
 });
+/* Takes an food input/ food search and makes it so i can use it for a fetch*/
+function remakeString(str:string):string{
+    const sliced = str.replace(" ", "_");
+    return sliced
+};
 
 function createCard(beer: any, o:number){ //beer: any <- must change that
     wrapper.innerHTML= "";
