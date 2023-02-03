@@ -1,6 +1,5 @@
 const urlBase = "https://api.punkapi.com/v2/beers";
-//?page=1&per_page=80
-//
+
 
 const inputQueryString = document.querySelector("#query-string") as HTMLInputElement;
 const buttonSearch = document.querySelector("#search-button") as HTMLButtonElement;
@@ -12,17 +11,25 @@ const selectCategories = document.querySelector("#categories") as HTMLSelectElem
 async function getBeerData(param:string, value:string){
     const response = await fetch(urlBase + param + value);
     const data: object[] = await response.json();
+    if (data.length <= 0){
+        alert("No food matches your search. Try: tips");
+    }
     return data;
 };
 
 buttonSearch.addEventListener("click",async (event) => {
     event.preventDefault();
     wrapper.innerHTML= "";
-    getBeerData("?food=", inputQueryString.value).then((beer)=>{
-        const arrLength : number = beer.length;
-        createCard(beer, arrLength);
-    });
-})
+    if(inputQueryString.value.length > 0){
+        getBeerData("?food=", inputQueryString.value).then((beer)=>{
+            const arrLength : number = beer.length;
+            createCard(beer, arrLength);
+        });
+    }else{
+        alert("Need a input");
+    };
+
+});
 
 function createCard(beer: any, o:number){ //beer: any <- must change that
     wrapper.innerHTML= "";
@@ -76,13 +83,13 @@ buttonRandFood.addEventListener("click", async (event)=>{
     event.preventDefault();
     getBeerData("/", "random").then((beer)=>{
         beer.forEach((element:any) => { // another any,
-            
-            const foodArr = element.food_pairing.length;
-            const random = Math.floor(Math.random() * foodArr)
-            console.log(element.food_pairing[random]);
+            //console.log(element);           
+            const foodArrLength: number = element.food_pairing.length;
+            const random = Math.floor(Math.random() * foodArrLength)
+            console.log(element.food_pairing[random]);            
         });
-    })
-})
+    });
+});
 
 
 getNameOfBeer();
