@@ -4,6 +4,7 @@ const urlBase = "https://api.punkapi.com/v2/beers";
 
 const inputQueryString = document.querySelector("#query-string") as HTMLInputElement;
 const buttonSearch = document.querySelector("#search-button") as HTMLButtonElement;
+const buttonRandFood = document.querySelector("#random-food-button") as HTMLButtonElement;
 const wrapper = document.querySelector("#content-box") as HTMLElement;
 const selectCategories = document.querySelector("#categories") as HTMLSelectElement;
 
@@ -70,6 +71,18 @@ selectCategories.addEventListener("change", async(event)=>{
     });
 });
 
+
+buttonRandFood.addEventListener("click", async (event)=>{
+    event.preventDefault();
+    getBeerData("/", "random").then((beer)=>{
+        beer.forEach((element:any) => { // another any,
+            
+            const foodArr = element.food_pairing.length;
+            const random = Math.floor(Math.random() * foodArr)
+            console.log(element.food_pairing[random]);
+        });
+    })
+})
 
 
 getNameOfBeer();
