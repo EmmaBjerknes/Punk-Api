@@ -36,13 +36,15 @@ function createCard(beer: any, o:number){ //beer: any <- must change that
     for (let i = 0; i < o; i++) {
         console.log(beer[i].name);
 
-        const beerCard = document.createElement('div');
+        const beerCard = document.createElement("div");
         beerCard.className = "beerCard";
-        const cardHeader = document.createElement('h3');
-        const cardTagline = document.createElement('p');
-        const cardDesc = document.createElement('p');
-        const cardFood = document.createElement('p');
-
+        const cardHeader = document.createElement("h3");
+        const cardTagline = document.createElement("p");
+        const cardDesc = document.createElement("p");
+        const cardFood = document.createElement("p");
+        const cardImg = document.createElement("img");
+        
+        cardImg.src = `${beer[i].image_url}`;
         cardHeader.innerHTML = `${beer[i].name}`;
         cardTagline.innerHTML = `${beer[i].tagline}`;
         cardDesc.innerHTML = ` ${beer[i].description}`;
@@ -51,7 +53,7 @@ function createCard(beer: any, o:number){ //beer: any <- must change that
             cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;
         }
 
-        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood);      
+        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood,cardImg);      
         wrapper.append(beerCard);
     }
 }
