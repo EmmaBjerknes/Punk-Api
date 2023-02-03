@@ -6,6 +6,7 @@ const buttonSearch = document.querySelector("#search-button") as HTMLButtonEleme
 const buttonRandFood = document.querySelector("#random-food-button") as HTMLButtonElement;
 const wrapper = document.querySelector("#content-box") as HTMLElement;
 const selectCategories = document.querySelector("#categories") as HTMLSelectElement;
+const randomFoodBox = document.querySelector("#random-food") as HTMLTableSectionElement;
 
 /*============ Fetch URL ================= */
 async function getBeerData(param:string, value:string){
@@ -92,17 +93,23 @@ selectCategories.addEventListener("change", async(event)=>{
         createCard(beer, arrLength);
     });
 });
-
+const randFood = document.createElement("p");
 // Gives a random food option 
 buttonRandFood.addEventListener("click", async (event)=>{
     event.preventDefault();
+
+    let foodSugg: string;
+
     getBeerData("/", "random").then((beer)=>{
         beer.forEach((element:any) => { // another any,
             //console.log(element);           
             const foodArrLength: number = element.food_pairing.length;
-            const random = Math.floor(Math.random() * foodArrLength)
-            console.log(element.food_pairing[random]);            
+            const random = Math.floor(Math.random() * foodArrLength);
+            foodSugg = element.food_pairing[random];
         });
+
+        randFood.innerHTML= foodSugg;
+        randomFoodBox.append(randFood);
     });
 });
 
