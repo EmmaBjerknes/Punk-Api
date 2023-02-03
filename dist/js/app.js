@@ -12,28 +12,38 @@ const urlBase = "https://api.punkapi.com/v2/beers";
 const inputQueryString = document.querySelector("#query-string");
 const buttonSearch = document.querySelector("#search-button");
 const wrapper = document.querySelector("#content-box");
+function getBeerToFood() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(urlBase + "?food=" + inputQueryString.value);
+        const data = yield response.json();
+        return data;
+    });
+}
+;
 buttonSearch.addEventListener("click", (event) => __awaiter(void 0, void 0, void 0, function* () {
     event.preventDefault();
     wrapper.innerHTML = "";
-    const response = yield fetch(urlBase + "?food=" + inputQueryString.value);
-    const data = yield response.json();
-    console.log(data);
-    const arrLength = data.length;
-    for (let i = 0; i < arrLength; i++) {
-        console.log(data[i].name);
-        const movieCard = document.createElement('div');
-        movieCard.className = "movieCard";
-        const movieHeader = document.createElement('h3');
-        const director = document.createElement('p');
-        const releaseDate = document.createElement('p');
-        const openingCrawl = document.createElement('p');
-        movieHeader.innerHTML = `${data[i].name}`;
-        director.innerHTML = `${data[i].tagline}`;
-        releaseDate.innerHTML = ` ${data[i].description}`;
-        for (let x = 0; x < 3; x++) {
-            openingCrawl.innerHTML += `${data[i].food_pairing[x]} </br>`;
-        }
-        movieCard.append(movieHeader, director, releaseDate, openingCrawl);
-        wrapper.append(movieCard);
-    }
+    getBeerToFood().then((beer) => {
+        const arrLength = beer.length;
+        createCard(beer, arrLength);
+    });
 }));
+function createCard(beer, o) {
+    for (let i = 0; i < o; i++) {
+        console.log(beer[i].name);
+        const beerCard = document.createElement('div');
+        beerCard.className = "beerCard";
+        const cardHeader = document.createElement('h3');
+        const cardTagline = document.createElement('p');
+        const cardDesc = document.createElement('p');
+        const cardFood = document.createElement('p');
+        cardHeader.innerHTML = `${beer[i].name}`;
+        cardTagline.innerHTML = `${beer[i].tagline}`;
+        cardDesc.innerHTML = ` ${beer[i].description}`;
+        for (let x = 0; x < 3; x++) {
+            cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;
+        }
+        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood);
+        wrapper.append(beerCard);
+    }
+}

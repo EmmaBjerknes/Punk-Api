@@ -7,37 +7,44 @@ const buttonSearch = document.querySelector("#search-button") as HTMLButtonEleme
 
 const wrapper = document.querySelector("#content-box") as HTMLElement;
 
+
+async function getBeerToFood(){
+    const response = await fetch(urlBase + "?food=" + inputQueryString.value);
+    const data: object[] = await response.json();
+    return data;
+};
+
 buttonSearch.addEventListener("click",async (event) => {
     event.preventDefault();
     wrapper.innerHTML= "";
-    const response = await fetch(urlBase + "?food=" + inputQueryString.value);
-    const data = await response.json();
-    console.log(data);
+    getBeerToFood().then((beer)=>{
+        const arrLength : number = beer.length;
+        createCard(beer, arrLength);
+    });
+})
 
-    const arrLength : number = data.length;
+function createCard(beer:any, o:number){
+    for (let i = 0; i < o; i++) {
+        console.log(beer[i].name);
 
-    for (let i = 0; i < arrLength; i++) {
-        console.log(data[i].name);
+        const beerCard = document.createElement('div');
+        beerCard.className = "beerCard";
+        const cardHeader = document.createElement('h3');
+        const cardTagline = document.createElement('p');
+        const cardDesc = document.createElement('p');
+        const cardFood = document.createElement('p');
 
-        const movieCard = document.createElement('div');
-        movieCard.className = "movieCard";
-        const movieHeader = document.createElement('h3');
-        const director = document.createElement('p');
-        const releaseDate = document.createElement('p');
-        const openingCrawl = document.createElement('p');
-
-        movieHeader.innerHTML = `${data[i].name}`;
-        director.innerHTML = `${data[i].tagline}`;
-        releaseDate.innerHTML = ` ${data[i].description}`;
+        cardHeader.innerHTML = `${beer[i].name}`;
+        cardTagline.innerHTML = `${beer[i].tagline}`;
+        cardDesc.innerHTML = ` ${beer[i].description}`;
         for(let x = 0; x < 3; x++){
-            openingCrawl.innerHTML += `${data[i].food_pairing[x]} </br>`;
+            cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;
         }
 
-        movieCard.append(movieHeader, director, releaseDate, openingCrawl);      
-        wrapper.append(movieCard);
-
+        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood);      
+        wrapper.append(beerCard);
     }
-})
+}
 
 
 /*
