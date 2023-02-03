@@ -8,8 +8,8 @@ const wrapper = document.querySelector("#content-box") as HTMLElement;
 const selectCategories = document.querySelector("#categories") as HTMLSelectElement;
 
 
-async function getBeerToFood(){
-    const response = await fetch(urlBase + "?food=" + inputQueryString.value);
+async function getBeerData(param:string, value:string){
+    const response = await fetch(urlBase + param + value);
     const data: object[] = await response.json();
     return data;
 };
@@ -17,7 +17,7 @@ async function getBeerToFood(){
 buttonSearch.addEventListener("click",async (event) => {
     event.preventDefault();
     wrapper.innerHTML= "";
-    getBeerToFood().then((beer)=>{
+    getBeerData("?food=", inputQueryString.value).then((beer)=>{
         const arrLength : number = beer.length;
         createCard(beer, arrLength);
     });
@@ -62,17 +62,9 @@ async function getNameOfBeer() {
     });
 }
 
-
-async function x(){
-    const response = await fetch(urlBase + "?beer_name=" + selectCategories.value);
-    const data: object[] = await response.json();
-    return data;
-};
-
-
 selectCategories.addEventListener("change", async(event)=>{
     event.preventDefault();
-    x().then((beer)=>{
+    getBeerData("?beer_name=", selectCategories.value).then((beer)=>{
         const arrLength : number = beer.length;
         createCard(beer, arrLength);
     });
