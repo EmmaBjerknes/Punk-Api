@@ -27,6 +27,16 @@ function remakeString(str:string):string{
     const sliced = str.replace(" ", "_");
     return sliced
 };
+/* == Takes the user input when searching for food / click the random food option */
+async function foodSearch(foodName:string){
+
+    let foodString = remakeString(foodName);
+
+    getBeerData("?food=", foodString).then((beer: RootObject[])=>{
+        const arrLength : number = beer.length;
+        createCard(beer, arrLength);
+    });
+}
 
 /* === Create Cards that holds beer info === */
 function createCard(beer: RootObject[], o:number){ 
@@ -84,12 +94,7 @@ buttonSearch.addEventListener("click",async (event) => {
     event.preventDefault();
     wrapper.innerHTML= "";
     if(inputQueryString.value.length > 0){
-        let foodString = remakeString(inputQueryString.value);
-
-        getBeerData("?food=", foodString).then((beer: RootObject[])=>{
-            const arrLength : number = beer.length;
-            createCard(beer, arrLength);
-        });
+        foodSearch(inputQueryString.value);
     }else{
         alert("Need a input");
     };
@@ -127,11 +132,23 @@ buttonRandFood.addEventListener("click", async (event)=>{
             const random = Math.floor(Math.random() * foodArrLength);
             foodSugg = element.food_pairing[random];
         });
+        buttonRandFood.innerText = "Give me another one";
+
+        const yesBtn = document.createElement("button");
+        yesBtn.innerText = "Yes!";
 
         randFood.innerHTML= foodSugg;
+        randFood.append(yesBtn);
         randomFoodBox.append(randFood);
+
+        yesBtn.addEventListener('click', (event)=>{
+            event.preventDefault();
+            foodSearch(foodSugg);
+            randFood.removeChild(yesBtn);
+        })
     });
 });
+
 
 /* === Start of program === */
 getNameOfBeer("?page=1&per_page=80");
