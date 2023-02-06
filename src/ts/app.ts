@@ -51,7 +51,12 @@ function createCard(beer: RootObject[], o:number){
         // change to check length of food_pairing array
         for(let x = 0; x < 3; x++){
             // check if its undefined
-            cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;
+            if(beer[i].food_pairing[x] === undefined){
+                console.log("Herp");
+                cardFood.innerHTML += "";
+            }else{
+                cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;                
+            }
         }
 
         beerCard.append(cardHeader, cardTagline, cardDesc, cardFood,cardImg);      
@@ -98,7 +103,7 @@ selectBeer.addEventListener("change", async(event)=>{
         createCard(beer, arrLength);
     });
 });
-
+// Dropdown that toggle between the API-pages of all beers
 const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
 selectedPageList.addEventListener("change", async(event)=>{
     event.preventDefault();
