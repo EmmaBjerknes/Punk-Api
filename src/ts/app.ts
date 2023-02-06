@@ -6,7 +6,7 @@ const inputQueryString = document.querySelector("#query-string") as HTMLInputEle
 const buttonSearch = document.querySelector("#search-button") as HTMLButtonElement;
 const buttonRandFood = document.querySelector("#random-food-button") as HTMLButtonElement;
 const wrapper = document.querySelector("#content-box") as HTMLElement;
-const selectCategories = document.querySelector("#categories") as HTMLSelectElement;
+const selectBeer = document.querySelector("#beerName") as HTMLSelectElement;
 const randomFoodBox = document.querySelector("#random-food") as HTMLTableSectionElement;
 
 
@@ -29,7 +29,7 @@ function remakeString(str:string):string{
 };
 
 /* === Create Cards that holds beer info === */
-function createCard(beer: RootObject[], o:number){ //beer: any <- must change that
+function createCard(beer: RootObject[], o:number){ 
     wrapper.innerHTML= "";
     for (let i = 0; i < o; i++) {
         const beerCard = document.createElement("div");
@@ -50,6 +50,7 @@ function createCard(beer: RootObject[], o:number){ //beer: any <- must change th
         cardDesc.innerHTML = ` ${beer[i].description}`;
         // change to check length of food_pairing array
         for(let x = 0; x < 3; x++){
+            // check if its undefined
             cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;
         }
 
@@ -59,15 +60,16 @@ function createCard(beer: RootObject[], o:number){ //beer: any <- must change th
 }
 
 /* === Make a dropdown with the name of the beer ===*/
-async function getNameOfBeer() {
-    const response = await fetch(urlBase + "?page=1&per_page=80");
+// option - sida 1-> sida 2 osv?
+async function getNameOfBeer(x: string) {
+    const response = await fetch(urlBase + x);
     const data = await response.json();
 
     data.forEach((element:any) => { // another any, 
         //console.log(element.name);
         let optionCategory = document.createElement("option");
         optionCategory.innerHTML = element.name;
-        selectCategories.append(optionCategory);
+        selectBeer.append(optionCategory);
     });
 }
 
@@ -89,13 +91,23 @@ buttonSearch.addEventListener("click",async (event) => {
 
 });
 // Dropdown that shows the name of the beers
-selectCategories.addEventListener("change", async(event)=>{
+selectBeer.addEventListener("change", async(event)=>{
     event.preventDefault();
-    getBeerData("?beer_name=", selectCategories.value).then((beer: RootObject[])=>{
+    getBeerData("?beer_name=", selectBeer.value).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
         createCard(beer, arrLength);
     });
 });
+
+const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
+selectedPageList.addEventListener("change", async(event)=>{
+    event.preventDefault();
+    selectBeer.innerHTML = "";
+    getNameOfBeer(selectedPageList.value);
+});
+
+
+
 const randFood = document.createElement("p");
 // Gives a random food option 
 buttonRandFood.addEventListener("click", async (event)=>{
@@ -117,4 +129,4 @@ buttonRandFood.addEventListener("click", async (event)=>{
 });
 
 /* === Start of program === */
-getNameOfBeer();
+getNameOfBeer("?page=1&per_page=80");
