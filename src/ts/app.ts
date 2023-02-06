@@ -1,5 +1,6 @@
 const urlBase = "https://api.punkapi.com/v2/beers";
 
+import RootObject from './beer';
 
 const inputQueryString = document.querySelector("#query-string") as HTMLInputElement;
 const buttonSearch = document.querySelector("#search-button") as HTMLButtonElement;
@@ -8,10 +9,12 @@ const wrapper = document.querySelector("#content-box") as HTMLElement;
 const selectCategories = document.querySelector("#categories") as HTMLSelectElement;
 const randomFoodBox = document.querySelector("#random-food") as HTMLTableSectionElement;
 
+
+
 /*============ Fetch URL ================= */
 async function getBeerData(param:string, value:string){
     const response = await fetch(urlBase + param + value);
-    const data: object[] = await response.json();
+    const data = await response.json();
     if (data.length <= 0){
         alert("No food matches your search. Try: tips");
 
@@ -26,7 +29,7 @@ function remakeString(str:string):string{
 };
 
 /* === Create Cards that holds beer info === */
-function createCard(beer: any, o:number){ //beer: any <- must change that
+function createCard(beer: RootObject[], o:number){ //beer: any <- must change that
     wrapper.innerHTML= "";
     for (let i = 0; i < o; i++) {
         const beerCard = document.createElement("div");
@@ -58,7 +61,7 @@ function createCard(beer: any, o:number){ //beer: any <- must change that
 /* === Make a dropdown with the name of the beer ===*/
 async function getNameOfBeer() {
     const response = await fetch(urlBase + "?page=1&per_page=80");
-    const data: object[] = await response.json();
+    const data = await response.json();
 
     data.forEach((element:any) => { // another any, 
         //console.log(element.name);
@@ -76,7 +79,7 @@ buttonSearch.addEventListener("click",async (event) => {
     if(inputQueryString.value.length > 0){
         let foodString = remakeString(inputQueryString.value);
 
-        getBeerData("?food=", foodString).then((beer)=>{
+        getBeerData("?food=", foodString).then((beer: RootObject[])=>{
             const arrLength : number = beer.length;
             createCard(beer, arrLength);
         });
@@ -88,7 +91,7 @@ buttonSearch.addEventListener("click",async (event) => {
 // Dropdown that shows the name of the beers
 selectCategories.addEventListener("change", async(event)=>{
     event.preventDefault();
-    getBeerData("?beer_name=", selectCategories.value).then((beer)=>{
+    getBeerData("?beer_name=", selectCategories.value).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
         createCard(beer, arrLength);
     });
@@ -100,7 +103,7 @@ buttonRandFood.addEventListener("click", async (event)=>{
 
     let foodSugg: string;
 
-    getBeerData("/", "random").then((beer)=>{
+    getBeerData("/", "random").then((beer: RootObject[])=>{
         beer.forEach((element:any) => { // another any,
             //console.log(element);           
             const foodArrLength: number = element.food_pairing.length;
