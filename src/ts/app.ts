@@ -8,6 +8,8 @@ const buttonRandFood = document.querySelector("#random-food-button") as HTMLButt
 const wrapper = document.querySelector("#content-box") as HTMLElement;
 const selectBeer = document.querySelector("#beerName") as HTMLSelectElement;
 const randomFoodBox = document.querySelector("#random-food") as HTMLTableSectionElement;
+const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
+const randomFoodParagraf = document.createElement("p");
 
 
 
@@ -75,7 +77,6 @@ function createCard(beer: RootObject[], o:number){
 }
 
 /* === Make a dropdown with the name of the beer ===*/
-// option - sida 1-> sida 2 osv?
 async function getNameOfBeer(x: string) {
     const response = await fetch(urlBase + x);
     const data = await response.json();
@@ -100,6 +101,7 @@ buttonSearch.addEventListener("click",async (event) => {
     };
 
 });
+
 // Dropdown that shows the name of the beers
 selectBeer.addEventListener("change", async(event)=>{
     event.preventDefault();
@@ -108,17 +110,14 @@ selectBeer.addEventListener("change", async(event)=>{
         createCard(beer, arrLength);
     });
 });
+
 // Dropdown that toggle between the API-pages of all beers
-const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
 selectedPageList.addEventListener("change", async(event)=>{
     event.preventDefault();
     selectBeer.innerHTML = "";
     getNameOfBeer(selectedPageList.value);
 });
 
-
-
-const randFood = document.createElement("p");
 // Gives a random food option 
 buttonRandFood.addEventListener("click", async (event)=>{
     event.preventDefault();
@@ -126,25 +125,24 @@ buttonRandFood.addEventListener("click", async (event)=>{
     let foodSugg: string;
 
     getBeerData("/", "random").then((beer: RootObject[])=>{
-        beer.forEach((element:any) => { // another any,
-            //console.log(element);           
+        beer.forEach((element:any) => { // another any,          
             const foodArrLength: number = element.food_pairing.length;
             const random = Math.floor(Math.random() * foodArrLength);
             foodSugg = element.food_pairing[random];
         });
-        buttonRandFood.innerText = "Give me another one";
 
+        buttonRandFood.innerText = "Give me another one";
         const yesBtn = document.createElement("button");
         yesBtn.innerText = "Yes!";
 
-        randFood.innerHTML= foodSugg;
-        randFood.append(yesBtn);
-        randomFoodBox.append(randFood);
+        randomFoodParagraf.innerHTML= foodSugg;
+        randomFoodParagraf.append(yesBtn);
+        randomFoodBox.append(randomFoodParagraf);
 
         yesBtn.addEventListener('click', (event)=>{
             event.preventDefault();
             foodSearch(foodSugg);
-            randFood.removeChild(yesBtn);
+            randomFoodParagraf.removeChild(yesBtn);
         })
     });
 });
@@ -152,3 +150,7 @@ buttonRandFood.addEventListener("click", async (event)=>{
 
 /* === Start of program === */
 getNameOfBeer("?page=1&per_page=80");
+
+
+// TO - Do
+// When cards loads -> needs a output  
