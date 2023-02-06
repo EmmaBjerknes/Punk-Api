@@ -40,10 +40,13 @@ async function foodSearch(foodName:string){
     });
 }
 
+let foodArr: string[]= [];
 /* === Create Cards that holds beer info === */
 function createCard(beer: RootObject[], o:number){ 
     wrapper.innerHTML= "";
     for (let i = 0; i < o; i++) {
+
+        foodArr = [];
         const beerCard = document.createElement("div");
         beerCard.className = "beerCard";
         const cardHeader = document.createElement("h3");
@@ -51,10 +54,16 @@ function createCard(beer: RootObject[], o:number){
         const cardDesc = document.createElement("p");
         const cardFood = document.createElement("p");
         const cardImg = document.createElement("img");
+
+        const saveBeer =document.createElement("button");
+        saveBeer.innerText = "Save";
+
         if(beer[i].image_url === null){
             cardImg.alt = "Oh, there is no img to this beer"
         }else{
             cardImg.src = `${beer[i].image_url}`;
+            cardImg.style.height= "250px";
+            cardImg.style.width = "100px";
         }
 
         cardHeader.innerHTML = `${beer[i].name}`;
@@ -67,12 +76,21 @@ function createCard(beer: RootObject[], o:number){
                 console.log("Herp");
                 cardFood.innerHTML += "";
             }else{
-                cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`;                
+                cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`; 
+                foodArr.push(beer[i].food_pairing[x]);             
             }
         }
-
-        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood,cardImg);      
+        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood, cardImg, saveBeer);      
         wrapper.append(beerCard);
+ 
+
+        // WHY NOT WORK ON LAST??..check tuesday
+        saveBeer.addEventListener('click', (event) =>{
+            event.preventDefault();
+            pushit(beer[i].name, beer[i].image_url, beer[i].tagline, beer[i].description, foodArr); 
+        })
+        
+
     }
 }
 
@@ -88,6 +106,7 @@ async function getNameOfBeer(x: string) {
         selectBeer.append(optionCategory);
     });
 }
+//const herparr: string[]= [];
 
 /* === EventListeners === */
 // free text search for food
@@ -99,7 +118,18 @@ buttonSearch.addEventListener("click",async (event) => {
     }else{
         alert("Need a input");
     };
+    // -- Save input from search? -- the start - ignore this code for now. Havent decided if trash (prob)
+    /*
+    let str : string = (<HTMLInputElement>document.querySelector("#query-string")).value; 
+    console.log(str);
 
+    herparr.push(str);
+    console.log(herparr);
+    const x = document.querySelector(".search-history") as HTMLUListElement;
+    const y = document.createElement("li");
+    y.innerText= str;
+    x.append(y); 
+    */
 });
 
 // Dropdown that shows the name of the beers
@@ -152,5 +182,26 @@ buttonRandFood.addEventListener("click", async (event)=>{
 getNameOfBeer("?page=1&per_page=80");
 
 
-// TO - Do
+// TO - Do - Class? 
 // When cards loads -> needs a output  
+
+interface Card {
+    name: string;
+    img?: string;
+    tagline: string;
+    description: string;
+    food_pairing: string [];
+};
+
+let likedArr:Card[] = []; 
+
+function pushit(x: string, y:string, e: string, r:string, f:string[]){
+    let derp: Card = {
+    name: x,
+    img: y,
+    tagline: e,
+    description: r,
+    food_pairing: f}
+    likedArr.push(derp);
+    console.log(likedArr)
+}
