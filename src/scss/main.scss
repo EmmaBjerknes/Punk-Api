@@ -1,7 +1,27 @@
 @charset 'utf-8';
 @use 'sass-utils' as *;
 
+main{
+    margin-bottom: 40px;
+    display: grid;
+}
 
+body{
+    display: grid;
+
+}
+.nav-wrapper{
+    display: grid;
+    background-color: aqua;
+    justify-content: center;
+    section{
+        margin: 10px;
+    }
+}
+.inner-content-box:first-child{
+    display: flex;
+    justify-content: center;
+}
 
 * {
     margin: 0;
@@ -12,4 +32,8 @@ footer{
     left: 0;
     bottom: 0;
     width: 100%;
+}
+
+#fav-list{
+    background: grey;
 }
