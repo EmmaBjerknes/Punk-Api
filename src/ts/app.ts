@@ -196,44 +196,66 @@ const favUl= document.querySelector(".fav-ul") as HTMLUListElement;
 const favBox = document.querySelector("#fav-list") as HTMLDivElement;
 favBox.style.display = "none";
 
+function showLikedList (){
+    for(let i= 0; i< likedArr.length; i++){
+        const favLi = document.createElement("li");
+        const favLiImg = document.createElement("img") as HTMLImageElement;
+        favLi.innerText = likedArr[i].name;
+
+        if(likedArr[i].img === null){
+            favLiImg.alt = "No img found"
+        }else{
+            favLiImg.src = `${likedArr[i].img}`;
+            // toggle class 
+            favLiImg.style.height= "100px";
+            favLiImg.style.width = "30px";
+        }
+ 
+        favLi.append(favLiImg);
+        favUl.append(favLi);
+
+        const showMoreBtn = document.createElement("button");
+        showMoreBtn.innerText ="Show more";
+        favLi.append(showMoreBtn);
+
+        showMoreBtn.addEventListener('click', async (event)=>{
+            event.preventDefault();
+            favLi.removeChild(showMoreBtn);
+
+            const moreInfoList = document.createElement("div");
+            moreInfoList.innerHTML = `
+                <p>Tagline: ${likedArr[i].tagline}</p> 
+                <p>Description: ${likedArr[i].description}</p> 
+                <p>Food: ${likedArr[i].food_pairing}</p>
+            `;
+
+            const showLessBtn = document.createElement("button");
+            showLessBtn.innerHTML = "Show less";
+
+            favLi.append(moreInfoList);
+            favLi.append(showLessBtn);
+
+            showLessBtn.addEventListener('click', (event)=>{
+                event.preventDefault();
+                favLi.removeChild(showLessBtn);
+                favLi.removeChild(moreInfoList);
+                favLi.append(showMoreBtn);
+            });
+        })
+    }
+};
+
 favBtn.addEventListener("click", async (event)=>{
     event.preventDefault();
     wrapper.innerHTML= "";
     favUl.innerHTML = "";
     favBox.style.display = "block";
-    for(let i= 0; i< likedArr.length; i++){
-        const favLi = document.createElement("li");
-        const favLiImg = document.createElement("img") as HTMLImageElement;
-        favLiImg.src = `${likedArr[i].img}`; 
-        favLi.innerText = likedArr[i].name;
-        // toggle class 
-        favLiImg.style.height= "100px";
-        favLiImg.style.width = "30px"; 
-
-        favLi.append(favLiImg);
-        favUl.append(favLi);
-
-        const favLiBtn = document.createElement("button");
-        favLiBtn.innerText ="Show more";
-        favLi.append(favLiBtn);
-
-        favLiBtn.addEventListener('click', async (event)=>{
-            event.preventDefault();
-
-            // Show the info in Card instead of make a card
-            const response = await fetch(urlBase + "?beer_name=" + remakeString(likedArr[i].name));
-            const data = await response.json();
-            createCard(data, data.length);
-        })
-
-        // make remove btn
-    }
-    console.log(likedArr);
+    showLikedList();
 }); 
 
 
 /* === Start of program === */
-getNameOfBeer("?page=1&per_page=80");
+getNameOfBeer("?page=1&per_page=65");
 
 
 // When cards loads -> needs a output  
