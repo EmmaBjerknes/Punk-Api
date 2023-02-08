@@ -19,15 +19,14 @@
     <main>
         <section class="content-box">
             <section class="inner-content-box">
-                <input type="text" name="queryString" id="query-string" placeholder="search tex 'beef'... "><br />
+                <input type="text" name="queryString" id="query-string" placeholder="search tex 'beef'... ">
                 <button id="search-button">Search</button>
-                <!-- <ul class="search-history"></ul> -->
             </section>
 
             <section class="inner-content-box">
                 <p>The name of the beers</p>
                 <select name="beerName" id="beerName">
-                    <option value="empty" selected disabled>--Please choose an option--</option>
+
                 </select>
 
                 <select name="pageList" id="pageList">
@@ -40,22 +39,28 @@
             </section>
 
             <section class="inner-content-box" id="random-food">
-                <button id="random-food-button">Give me random food</button>
+                <fieldset>
+                    <legend>I dont know what to eat!</legend>
+                    <button id="random-food-button">Give me random food</button>
+                </fieldset>
+
             </section>
         </section>
 
         <section id="content-box">
             <!-- cards -->
         </section>
+        <section>
+            <div class="inner-content-box" id="fav-list">
+                <h3>Fav-beer</h3>
+                <ul class="fav-ul"></ul>
+            </div>
+        </section>
 
-        <div class="inner-content-box" id="fav-list">
-            <h3>Fav-beer</h3>
-            <ul class="fav-ul"></ul>
-        </div>
+
 
     </main>
     <footer>
-        <h2>feets</h2>
         <button class="fav-btn">Show fav</button>
     </footer>
 </body>
