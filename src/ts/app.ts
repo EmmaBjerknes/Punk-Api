@@ -11,12 +11,33 @@ const randomFoodBox = document.querySelector("#random-food") as HTMLTableSection
 const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
 const randomFoodParagraf = document.createElement("p");
 
+/* === Save beer info === */ 
+interface Card {
+    name: string;
+    img?: string;
+    tagline: string;
+    description: string;
+    food_pairing: string [];
+};
+
+let likedArr:Card[] = []; 
+
+function pushit(x: string, y:string, e: string, r:string, f:string[]){
+    let derp: Card = {
+    name: x,
+    img: y,
+    tagline: e,
+    description: r,
+    food_pairing: f}
+    likedArr.push(derp);
+    console.log(likedArr)
+};
 
 
 /*============ Fetch URL ================= */
 async function getBeerData(param:string, value:string){
     const response = await fetch(urlBase + param + value);
-    const data = await response.json();
+    const data: RootObject[] = await response.json();
     if (data.length <= 0){
         alert("No food matches your search. Try: tips");
 
@@ -29,7 +50,7 @@ function remakeString(str:string):string{
     const sliced = str.replace(" ", "_");
     return sliced
 };
-/* == Takes the user input when searching for food / click the random food option */
+/* === Takes the user input when searching for food / click the random food option === */
 async function foodSearch(foodName:string){
 
     let foodString = remakeString(foodName);
@@ -69,9 +90,11 @@ function createCard(beer: RootObject[], o:number){
         cardHeader.innerHTML = `${beer[i].name}`;
         cardTagline.innerHTML = `${beer[i].tagline}`;
         cardDesc.innerHTML = ` ${beer[i].description}`;
+
         // change to check length of food_pairing array
-        for(let x = 0; x < 3; x++){
-            // check if its undefined
+        const foodArrLength = beer[i].food_pairing.length;
+        console.log(foodArrLength);
+        for(let x = 0; x < foodArrLength; x++){
             if(beer[i].food_pairing[x] === undefined){
                 console.log("Herp");
                 cardFood.innerHTML += "";
@@ -80,26 +103,24 @@ function createCard(beer: RootObject[], o:number){
                 foodArr.push(beer[i].food_pairing[x]);             
             }
         }
-        beerCard.append(cardHeader, cardTagline, cardDesc, cardFood, cardImg, saveBeer);      
+        beerCard.append(cardHeader, saveBeer, cardTagline, cardDesc, cardFood, cardImg);      
         wrapper.append(beerCard);
  
-
-        // WHY NOT WORK ON LAST??..check tuesday
         saveBeer.addEventListener('click', (event) =>{
             event.preventDefault();
             pushit(beer[i].name, beer[i].image_url, beer[i].tagline, beer[i].description, foodArr); 
         })
-        
-
     }
 }
 
 /* === Make a dropdown with the name of the beer ===*/
 async function getNameOfBeer(x: string) {
     const response = await fetch(urlBase + x);
-    const data = await response.json();
+    const data: RootObject[] = await response.json();
 
-    data.forEach((element:any) => { 
+    selectBeer.innerHTML = `<option value="empty" selected disabled>--Please choose an option--</option>`;
+
+    data.forEach((element) => { 
         let optionCategory = document.createElement("option");
         optionCategory.innerHTML = element.name;
         selectBeer.append(optionCategory);
@@ -141,7 +162,7 @@ buttonRandFood.addEventListener("click", async (event)=>{
     let foodSugg: string;
 
     getBeerData("/", "random").then((beer: RootObject[])=>{
-        beer.forEach((element:any) => { // another any,          
+        beer.forEach((element) => {          
             const foodArrLength: number = element.food_pairing.length;
             const random = Math.floor(Math.random() * foodArrLength);
             foodSugg = element.food_pairing[random];
@@ -177,11 +198,35 @@ favBox.style.display = "none";
 
 favBtn.addEventListener("click", async (event)=>{
     event.preventDefault();
+    wrapper.innerHTML= "";
+    favUl.innerHTML = "";
     favBox.style.display = "block";
     for(let i= 0; i< likedArr.length; i++){
         const favLi = document.createElement("li");
-        favLi.innerText = likedArr[i].name; 
+        const favLiImg = document.createElement("img") as HTMLImageElement;
+        favLiImg.src = `${likedArr[i].img}`; 
+        favLi.innerText = likedArr[i].name;
+        // toggle class 
+        favLiImg.style.height= "100px";
+        favLiImg.style.width = "30px"; 
+
+        favLi.append(favLiImg);
         favUl.append(favLi);
+
+        const favLiBtn = document.createElement("button");
+        favLiBtn.innerText ="Show more";
+        favLi.append(favLiBtn);
+
+        favLiBtn.addEventListener('click', async (event)=>{
+            event.preventDefault();
+
+            // Show the info in Card instead of make a card
+            const response = await fetch(urlBase + "?beer_name=" + remakeString(likedArr[i].name));
+            const data = await response.json();
+            createCard(data, data.length);
+        })
+
+        // make remove btn
     }
     console.log(likedArr);
 }); 
@@ -191,26 +236,5 @@ favBtn.addEventListener("click", async (event)=>{
 getNameOfBeer("?page=1&per_page=80");
 
 
-// TO - Do - Class? 
 // When cards loads -> needs a output  
 
-interface Card {
-    name: string;
-    img?: string;
-    tagline: string;
-    description: string;
-    food_pairing: string [];
-};
-
-let likedArr:Card[] = []; 
-
-function pushit(x: string, y:string, e: string, r:string, f:string[]){
-    let derp: Card = {
-    name: x,
-    img: y,
-    tagline: e,
-    description: r,
-    food_pairing: f}
-    likedArr.push(derp);
-    console.log(likedArr)
-}
