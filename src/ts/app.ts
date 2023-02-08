@@ -163,9 +163,26 @@ buttonRandFood.addEventListener("click", async (event)=>{
     });
 });
 
+
+// Start of showing saved beer 
+// only show name + img =>
+// when click show more -> show beer.name card from dropdown
+// remove -> remove from array Card
 const favBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
+
+const favUl= document.querySelector(".fav-ul") as HTMLUListElement;
+
+const favBox = document.querySelector("#fav-list") as HTMLDivElement;
+favBox.style.display = "none";
+
 favBtn.addEventListener("click", async (event)=>{
     event.preventDefault();
+    favBox.style.display = "block";
+    for(let i= 0; i< likedArr.length; i++){
+        const favLi = document.createElement("li");
+        favLi.innerText = likedArr[i].name; 
+        favUl.append(favLi);
+    }
     console.log(likedArr);
 }); 
 
