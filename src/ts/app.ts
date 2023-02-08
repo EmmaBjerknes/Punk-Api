@@ -99,14 +99,12 @@ async function getNameOfBeer(x: string) {
     const response = await fetch(urlBase + x);
     const data = await response.json();
 
-    data.forEach((element:any) => { // another any, 
-        //console.log(element.name);
+    data.forEach((element:any) => { 
         let optionCategory = document.createElement("option");
         optionCategory.innerHTML = element.name;
         selectBeer.append(optionCategory);
     });
 }
-//const herparr: string[]= [];
 
 /* === EventListeners === */
 // free text search for food
@@ -118,18 +116,6 @@ buttonSearch.addEventListener("click",async (event) => {
     }else{
         alert("Need a input");
     };
-    // -- Save input from search? -- the start - ignore this code for now. Havent decided if trash (prob)
-    /*
-    let str : string = (<HTMLInputElement>document.querySelector("#query-string")).value; 
-    console.log(str);
-
-    herparr.push(str);
-    console.log(herparr);
-    const x = document.querySelector(".search-history") as HTMLUListElement;
-    const y = document.createElement("li");
-    y.innerText= str;
-    x.append(y); 
-    */
 });
 
 // Dropdown that shows the name of the beers
@@ -176,6 +162,12 @@ buttonRandFood.addEventListener("click", async (event)=>{
         })
     });
 });
+
+const favBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
+favBtn.addEventListener("click", async (event)=>{
+    event.preventDefault();
+    console.log(likedArr);
+}); 
 
 
 /* === Start of program === */
