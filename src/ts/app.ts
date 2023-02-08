@@ -158,7 +158,6 @@ selectedPageList.addEventListener("change", async(event)=>{
 // Gives a random food option 
 buttonRandFood.addEventListener("click", async (event)=>{
     event.preventDefault();
-
     let foodSugg: string;
 
     getBeerData("/", "random").then((beer: RootObject[])=>{
@@ -184,17 +183,13 @@ buttonRandFood.addEventListener("click", async (event)=>{
     });
 });
 
-
 // Start of showing saved beer 
-// only show name + img =>
-// when click show more -> show beer.name card from dropdown
 // remove -> remove from array Card
-const favBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
+const savedBeerBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
+const savedBeerBox = document.querySelector("#fav-list") as HTMLDivElement;
+const savedBeerUl= document.querySelector(".fav-ul") as HTMLUListElement;
 
-const favUl= document.querySelector(".fav-ul") as HTMLUListElement;
-
-const favBox = document.querySelector("#fav-list") as HTMLDivElement;
-favBox.style.display = "none";
+savedBeerBox.style.display = "none";
 
 function showLikedList (){
     for(let i= 0; i< likedArr.length; i++){
@@ -210,15 +205,15 @@ function showLikedList (){
             favLiImg.style.height= "100px";
             favLiImg.style.width = "30px";
         }
- 
+    
         favLi.append(favLiImg);
-        favUl.append(favLi);
+        savedBeerUl.append(favLi);
 
         const showMoreBtn = document.createElement("button");
         showMoreBtn.innerText ="Show more";
         favLi.append(showMoreBtn);
 
-        showMoreBtn.addEventListener('click', async (event)=>{
+        showMoreBtn.addEventListener('click', (event)=>{
             event.preventDefault();
             favLi.removeChild(showMoreBtn);
 
@@ -231,9 +226,7 @@ function showLikedList (){
 
             const showLessBtn = document.createElement("button");
             showLessBtn.innerHTML = "Show less";
-
-            favLi.append(moreInfoList);
-            favLi.append(showLessBtn);
+            favLi.append(moreInfoList, showLessBtn);
 
             showLessBtn.addEventListener('click', (event)=>{
                 event.preventDefault();
@@ -241,15 +234,16 @@ function showLikedList (){
                 favLi.removeChild(moreInfoList);
                 favLi.append(showMoreBtn);
             });
-        })
+        });
     }
+
 };
 
-favBtn.addEventListener("click", async (event)=>{
+savedBeerBtn.addEventListener("click", async (event)=>{
     event.preventDefault();
     wrapper.innerHTML= "";
-    favUl.innerHTML = "";
-    favBox.style.display = "block";
+    savedBeerUl.innerHTML = "";
+    savedBeerBox.style.display = "block";
     showLikedList();
 }); 
 
