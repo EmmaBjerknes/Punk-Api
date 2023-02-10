@@ -6,9 +6,8 @@ const inputQueryString = document.querySelector("#query-string") as HTMLInputEle
 const searchButton = document.querySelector("#search-button") as HTMLButtonElement;
 const randFoodButton = document.querySelector("#random-food-button") as HTMLButtonElement;
 const cardWrapper = document.querySelector("#content-box") as HTMLElement;
+const cardsHeader = document.querySelector(".food-answer") as HTMLElement;
 const beerSelect = document.querySelector("#beerName") as HTMLSelectElement;
-const randomFoodBox = document.querySelector(".random-food-box") as HTMLFieldSetElement;
-
 const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
 const randomFoodParagraf = document.createElement("p");
 const savedBeerBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
@@ -175,20 +174,9 @@ randFoodButton.addEventListener("click", async (event)=>{
             const random = Math.floor(Math.random() * foodArrLength);
             foodSugg = element.food_pairing[random];
         });
-
-        randFoodButton.innerText = "Give me another one";
-        const yesBtn = document.createElement("button");
-        yesBtn.innerText = "Yes!";
-
-        randomFoodParagraf.innerHTML= foodSugg;
-        randomFoodParagraf.append(yesBtn);
-        randomFoodBox.append(randomFoodParagraf);
-
-        yesBtn.addEventListener('click', (event)=>{
-            event.preventDefault();
-            foodSearch(foodSugg);
-            randomFoodParagraf.removeChild(yesBtn);
-        })
+        randomFoodParagraf.innerText= `How about: ${foodSugg}?`;
+        foodSearch(foodSugg);
+        cardsHeader.append(randomFoodParagraf);
     });
 });
 
