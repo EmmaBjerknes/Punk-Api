@@ -7,20 +7,22 @@ body{
     header{
         height: 20vh;
         h1{
-            font-family: $font-head;
+            font-family: $font-fam-head;
+            font-size: $font-size-header;
+            word-break: break-word;
         }
     }
     main{
         margin-bottom: 40px;
         #content-box{
-            @include set-margin-padding(10px);
+            @include set-margin-padding(0px);
             .beerCard{
                 max-width: 360px;
                 border: 2px solid black;
-                @include set-margin-padding(10px);
+                @include set-margin-padding(5px);
                 background-color: $card-bgr;
                 h3{
-                    font-family: $font-main;
+                    font-family: $font-fam-main;
                 }
                 img{
                     height: 250px;
@@ -38,10 +40,16 @@ body{
 .nav-wrapper{
     border-bottom: 3px solid grey;
     padding-bottom: 10px;
+
+    font-size: $font-size-s;
     fieldset{
-        @include set-margin-padding(10px);
+        @include set-margin-padding(0px);
         height: fit-content;
+        &>*{
+            font-size: $font-size-s;
+        }
     }
+        
 
 }
 .beerCard > button,
@@ -72,7 +80,7 @@ footer{
         }
     }
 }
-
+/*
 @media screen and (max-width: 376px) {
 
     html,
@@ -82,6 +90,23 @@ footer{
                 @include set-margin-padding(0);
             } 
         }
+    }
+
+}*/
+@media screen and (min-width: 650px) {
+    //search-bar
+    .nav-wrapper{
+        font-size: $font-size-l;
+        fieldset{
+            @include set-margin-padding(10px);
+            height: fit-content;
+            &>*{
+                font-size: large;
+            }
+        }  
+    }
+    #content-box{
+        @include set-margin-padding(10px);
     }
 }
 
