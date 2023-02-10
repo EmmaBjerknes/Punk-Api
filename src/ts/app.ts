@@ -117,6 +117,7 @@ function createCard(beer: RootObject[], o:number){
             pushIt(beer[i].name, beer[i].image_url, beer[i].tagline, beer[i].description, foodArr);
             saveBeerBtn.innerText = "Saved";
             saveBeerBtn.disabled = true;
+            saveBeerBtn.style.cursor = "not-allowed";
         })
     }
 }
