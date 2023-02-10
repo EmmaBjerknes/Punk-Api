@@ -4,9 +4,6 @@
 
 html,
 body{
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: 100%;
     header{
         display: flex;
         justify-content: center;
@@ -31,6 +28,7 @@ body{
                 border: 2px solid black;
                 margin: 10px;
                 padding: 10px;
+                background-color: $card-bgr;
                 h3{
                     grid-column: 1 / span 2;
                     grid-row: 1;
@@ -69,11 +67,12 @@ body{
 //search-bar
 .nav-wrapper{
     display: grid;
-    background-color: aqua;
     justify-content: center;
     align-items: center;
     grid-template-columns: 10px 1fr 10px;
     grid-template-rows: auto;
+    border-bottom: 3px solid grey;
+    padding-bottom: 10px;
     section{
         margin: 10px;
         display: flex;
@@ -91,25 +90,32 @@ body{
         grid-row: 3;
     }
 }
+.beerCard > button,
+footer > button{
+    cursor: pointer;
+    background: none;
+    border: 0;
+    .material-symbols-outlined{
+        padding: 1vw;
+        border-radius: 50%;
+        background: $blue-hl-prim;
+    }
+}
+
 footer{
     position: fixed;
     right: 0;
     bottom: 0;
-    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
     button{
-        position: fixed;
-        background: none;
-        right: 10px;
-        bottom: 10px;
-        border: 0;
+        margin: 10px;
         .material-symbols-outlined{
-            padding: 1vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(192,123,232,1) 9%, rgba(153,45,186,1)100%);
             box-shadow: 6px 6px 6px grey;
             font-size: 40px;
             &:hover{
-                background: radial-gradient(circle, rgba(199,120,236,1) 1%, rgba(182,173,193,1)100%);
+                background: $blue-hl-sec;
                 box-shadow: none;
             }
         }
@@ -136,10 +142,6 @@ footer{
 }
 @media screen and (max-width: 376px) {
 
-    * {
-        margin: 0;
-        box-sizing: border-box;
-    }
     html,
     body{
         main{
