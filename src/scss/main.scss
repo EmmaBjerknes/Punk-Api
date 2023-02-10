@@ -4,19 +4,23 @@
 
 html,
 body{
+    header{
+        height: 20vh;
+        h1{
+            font-family: $font-head;
+        }
+    }
     main{
         margin-bottom: 40px;
         #content-box{
-            margin: 10px;
-            padding: 10px;
+            @include set-margin-padding(10px);
             .beerCard{
                 max-width: 360px;
                 border: 2px solid black;
-                margin: 10px;
-                padding: 10px;
+                @include set-margin-padding(10px);
                 background-color: $card-bgr;
                 h3{
-                    // gonna need a font or size here
+                    font-family: $font-main;
                 }
                 img{
                     height: 250px;
@@ -34,8 +38,8 @@ body{
 .nav-wrapper{
     border-bottom: 3px solid grey;
     padding-bottom: 10px;
-    section{
-        margin: 10px;
+    fieldset{
+        @include set-margin-padding(10px);
         height: fit-content;
     }
 
@@ -75,15 +79,14 @@ footer{
     body{
         main{
             #content-box{
-                margin: 0;
-                padding: 0;
+                @include set-margin-padding(0);
             } 
         }
     }
 }
 
 * {
-    margin: 0;
+    @include set-margin-padding(0);
     box-sizing: border-box;
 }
 

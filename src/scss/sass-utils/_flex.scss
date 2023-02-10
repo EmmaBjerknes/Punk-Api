@@ -6,6 +6,14 @@ body{
         align-items: center;
     }
     main{
+        .random-food-box{
+            display: flex;
+            #random-food-button{
+                justify-content: center;
+                align-items: center;
+            }            
+        }
+
         #content-box{
             display: flex;
             flex-wrap: wrap;

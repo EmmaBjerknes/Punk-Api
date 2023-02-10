@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=GFS+Neohellenic&display=swap');
+
+
+$font-head: 'Dancing Script', cursive;
+$font-main: 'Roboto', sans-serif;
+
+
+
+
+
+@mixin set-margin-padding($x){
+    margin: $x;
+    padding: $x;
+}
