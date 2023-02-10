@@ -7,7 +7,8 @@ const searchButton = document.querySelector("#search-button") as HTMLButtonEleme
 const randFoodButton = document.querySelector("#random-food-button") as HTMLButtonElement;
 const cardWrapper = document.querySelector("#content-box") as HTMLElement;
 const beerSelect = document.querySelector("#beerName") as HTMLSelectElement;
-const randomFoodBox = document.querySelector("#random-food") as HTMLTableSectionElement;
+const randomFoodBox = document.querySelector(".random-food-box") as HTMLFieldSetElement;
+
 const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
 const randomFoodParagraf = document.createElement("p");
 const savedBeerBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
@@ -74,19 +75,23 @@ function createCard(beer: RootObject[], o:number){
         beerCard.className = "beerCard";
         const cardHeader = document.createElement("h3");
         const cardTagline = document.createElement("p");
+        cardTagline.className = "cardTagline";
         const cardDesc = document.createElement("p");
+        cardDesc.className = "cardDesc";
         const cardFood = document.createElement("p");
+        cardFood.className = "cardFood";
         const cardImg = document.createElement("img");
 
         const saveBeerBtn =document.createElement("button");
         saveBeerBtn.innerText = "Save";
+        saveBeerBtn.innerHTML = `<span class="material-symbols-outlined">
+        star_rate
+        </span>`;
 
         if(beer[i].image_url === null){
             cardImg.alt = "Oh, there is no img to this beer"
         }else{
             cardImg.src = `${beer[i].image_url}`;
-            cardImg.style.height= "250px";
-            cardImg.style.width = "100px";
         }
 
         cardHeader.innerHTML = `${beer[i].name}`;
@@ -110,7 +115,8 @@ function createCard(beer: RootObject[], o:number){
         saveBeerBtn.addEventListener('click', (event) =>{
             event.preventDefault();
             pushIt(beer[i].name, beer[i].image_url, beer[i].tagline, beer[i].description, foodArr);
-            saveBeerBtn.style.display = "none"; 
+            saveBeerBtn.innerText = "Saved";
+            saveBeerBtn.disabled = true;
         })
     }
 }
