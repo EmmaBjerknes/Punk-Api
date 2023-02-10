@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Punk-Api</title>
     <link rel="stylesheet" href="../dist/css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script>var exports = {};</script>
     <script defer src="../dist/js/app.js"></script>
 </head>
@@ -24,26 +26,25 @@
             </section>
 
             <section class="inner-content-box">
-                <p>The name of the beers</p>
-                <select name="beerName" id="beerName">
+                <fieldset>
+                    <legend>The name of the beers</legend>
+                    <select name="beerName" id="beerName"></select>
 
-                </select>
-
-                <select name="pageList" id="pageList">
-                    <option value="?page=1&per_page=65" selected>-- Page 1 --</option>
-                    <option value="?page=2&per_page=65">-- Page 2 --</option>
-                    <option value="?page=3&per_page=65">-- Page 3 --</option>
-                    <option value="?page=4&per_page=65">-- Page 4 --</option>
-                    <option value="?page=5&per_page=65">-- Page 5 --</option>
-                </select>
+                    <select name="pageList" id="pageList">
+                        <option value="?page=1&per_page=65" selected>-- Page 1 --</option>
+                        <option value="?page=2&per_page=65">-- Page 2 --</option>
+                        <option value="?page=3&per_page=65">-- Page 3 --</option>
+                        <option value="?page=4&per_page=65">-- Page 4 --</option>
+                        <option value="?page=5&per_page=65">-- Page 5 --</option>
+                    </select>
+                </fieldset>
             </section>
 
-            <section class="inner-content-box" id="random-food">
-                <fieldset>
+            <section class="inner-content-box" id="random-food-wrapper">
+                <fieldset class="random-food-box">
                     <legend>I dont know what to eat!</legend>
                     <button id="random-food-button">Give me random food</button>
                 </fieldset>
-
             </section>
         </section>
 
@@ -56,13 +57,11 @@
                 <ul class="fav-ul"></ul>
             </div>
         </section>
-
-
-
     </main>
     <footer>
-        <button class="fav-btn">Show fav</button>
+        <button class="fav-btn"><span class="material-symbols-outlined">
+            hotel_class
+            </span></button>
     </footer>
 </body>
-
 </html>
