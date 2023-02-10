@@ -1,0 +1,34 @@
+html,
+body{
+    header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    main{
+        #content-box{
+            display: flex;
+            flex-wrap: wrap;
+            .beerCard{
+                h3{
+                    display: flex;
+                    justify-content: center;
+                }
+            }    
+        }
+    }  
+}
+//search-bar
+.nav-wrapper{
+    section{
+        display: flex;
+        justify-content: center;
+    }
+
+}
+
+footer{
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+}
