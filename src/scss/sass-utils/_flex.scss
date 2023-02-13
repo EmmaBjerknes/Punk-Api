@@ -1,39 +1,35 @@
-html,
-body{
-    header{
+
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main{
+    .nav-wrapper{
+        section{
+            display: flex;
+            justify-content: center;
+        }
+    }
+    #content-box{
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
+        .beerCard{
+            h3{
+                display: flex;
+                justify-content: center;
+            }
+        }    
+    }
+    li{
+        display: flex;
+        justify-content: end;
+        flex-flow: row wrap;
         align-items: center;
     }
-    main{
-        .random-food-box{
-            display: flex;
-            #random-food-button{
-                justify-content: center;
-                align-items: center;
-            }            
-        }
-
-        #content-box{
-            display: flex;
-            flex-wrap: wrap;
-            .beerCard{
-                h3{
-                    display: flex;
-                    justify-content: center;
-                }
-            }    
-        }
-    }  
-}
-//search-bar
-.nav-wrapper{
-    section{
-        display: flex;
-        justify-content: center;
-    }
-
-}
+}  
 
 footer{
     display: flex;
