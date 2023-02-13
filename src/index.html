@@ -15,13 +15,13 @@
 
 <body>
     <header>
-        <h1>Inspiration for the Art of Brewing</h1>
+        <h1>Beer & Bites: A Match Made in Heaven</h1>
     </header>
     <div class="loadingGif" style="display: none;"></div>
 
     <main>
         <section class="nav-wrapper">
-            <section class="inner-content-box">
+            <section>
                 <fieldset>
                     <legend>Search beer based on food:</legend>
                     <input type="text" name="queryString" id="query-string" placeholder="search tex 'beef'... ">
@@ -29,7 +29,7 @@
                 </fieldset>
             </section>
 
-            <section class="inner-content-box">
+            <section>
                 <fieldset>
                     <legend>The name of the beers</legend>
                     <select name="beerName" id="beerName"></select>
@@ -44,7 +44,7 @@
                 </fieldset>
             </section>
 
-            <section class="inner-content-box" id="random-food-wrapper">
+            <section id="random-food-wrapper">
                 <fieldset class="random-food-box">
                     <legend>I dont know what to eat!</legend>
                     <button id="random-food-button">Give me random food</button>
@@ -57,9 +57,9 @@
         <section id="content-box">
             <!-- cards -->
         </section>
-        <section>
-            <div class="inner-content-box" id="fav-list">
-                <h3>Fav-beer</h3>
+        <section id="fav-wrapper">
+            <div id="fav-list">
+                <h3>User's Favorite Beer Selection</h3>
                 <ul class="fav-ul"></ul>
             </div>
         </section>
