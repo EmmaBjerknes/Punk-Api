@@ -41,10 +41,20 @@ async function getBeerData(param:string, value:string){
     const response = await fetch(urlBase + param + value);
     const data: RootObject[] = await response.json();
     if (data.length <= 0){
-        alert("No food matches your search. Try: tips");
+        alert("No food matches your search.");
     }
     return data;
 };
+/*=========== Hide content ================ */
+function hideContent(...elements: HTMLElement[]):void{
+    elements.forEach(element =>{
+        if(element.tagName === 'SECTION'){cardWrapper.innerHTML = "";}
+        else if(element.tagName === "UL"){savedBeerUl.innerHTML = "";}
+        else if(element.tagName === "P"){randomFoodParagraf.innerHTML = "";}
+        else if(element.tagName === "DIV"){savedBeerBox.style.display = "none";}
+        else{console.log("Error in hideContent");}
+    });
+}
 
 /* === Takes an food input/ food search and makes it so i can use it for a fetch ===*/
 function remakeString(str:string):string{
@@ -65,9 +75,9 @@ async function foodSearch(foodName:string){
 
 /* === Create Cards that holds beer info === */
 let foodArr: string[]= [];
-function createCard(beer: RootObject[], o:number){ 
-    cardWrapper.innerHTML= "";
-    for (let i = 0; i < o; i++) {
+function createCard(beer: RootObject[], arrLength:number){ 
+    hideContent(cardWrapper);
+    for (let i = 0; i < arrLength; i++) {
 
         foodArr = [];
         const beerCard = document.createElement("div");
@@ -139,7 +149,7 @@ async function getNameOfBeer(x: string) {
 // free text search for food
 searchButton.addEventListener("click",async (event) => {
     event.preventDefault();
-    cardWrapper.innerHTML= "";
+    hideContent(cardWrapper, savedBeerBox, randomFoodParagraf);
     if(inputQueryString.value.length > 0){
         foodSearch(inputQueryString.value);
     }else{
@@ -150,6 +160,7 @@ searchButton.addEventListener("click",async (event) => {
 // Dropdown that shows the name of the beers
 beerSelect.addEventListener("change", async(event)=>{
     event.preventDefault();
+    hideContent(savedBeerBox, randomFoodParagraf);
     getBeerData("?beer_name=", beerSelect.value).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
         createCard(beer, arrLength);
@@ -159,13 +170,14 @@ beerSelect.addEventListener("change", async(event)=>{
 // Dropdown that toggle between the API-pages of all beers
 selectedPageList.addEventListener("change", async(event)=>{
     event.preventDefault();
-    beerSelect.innerHTML = "";
+    hideContent(beerSelect);
     getNameOfBeer(selectedPageList.value);
 });
 
 // Gives a random food option 
 randFoodButton.addEventListener("click", async (event)=>{
     event.preventDefault();
+    hideContent(savedBeerBox);
     let foodSugg: string;
 
     getBeerData("/", "random").then((beer: RootObject[])=>{
@@ -184,8 +196,7 @@ randFoodButton.addEventListener("click", async (event)=>{
 // remove -> remove from array Card
 savedBeerBtn.addEventListener("click", async (event)=>{
     event.preventDefault();
-    cardWrapper.innerHTML= "";
-    savedBeerUl.innerHTML = "";
+    hideContent(cardWrapper, savedBeerUl, randomFoodParagraf,savedBeerBox);
     savedBeerBox.style.display = "block";
     showLikedList();
 }); 
@@ -236,7 +247,6 @@ function showLikedList (){
         });
     }
 };
-
 
 /* === Start of program === */
 getNameOfBeer("?page=1&per_page=65");
