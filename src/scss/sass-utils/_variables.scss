@@ -4,10 +4,12 @@
 
 $font-fam-head: 'Dancing Script', cursive;
 $font-fam-main: 'Roboto', sans-serif;
+
+
 $font-size-header: 7vh;
 $font-size-l: x-large;
 $font-size-m: large;
-$font-size-s: small;
+$font-size-s: medium;
 
 
 
@@ -15,4 +17,9 @@ $font-size-s: small;
 @mixin set-margin-padding($x){
     margin: $x;
     padding: $x;
+}
+
+@mixin loadingGifSize(){
+    height: 120px;
+    width: 120px;
 }
