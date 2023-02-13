@@ -40,6 +40,7 @@ function pushIt(newName: string, newImg:string, newTagline: string, newDesc:stri
 
 /*============ Fetch URL ================= */
 async function getBeerData(param:string, value:string){
+    loadingGif.classList.add("loadingGif");
     const response = await fetch(urlBase + param + value);
     const data: RootObject[] = await response.json();
     if (data.length <= 0){
@@ -67,10 +68,10 @@ function remakeString(str:string):string{
 /* === Takes the user input when searching for food / click the random food option === */
 async function foodSearch(foodName:string){
     let foodString = remakeString(foodName);
-
+    loadingGif.style.display = "block";
+    loadingGif.classList.add("loadingGif");
     getBeerData("?food=", foodString).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
-        loadingGif.style.display = "block";
         createCard(beer, arrLength);
     });
 }
