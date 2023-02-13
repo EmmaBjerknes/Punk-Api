@@ -12,7 +12,9 @@ const selectedPageList = document.querySelector("#pageList") as HTMLSelectElemen
 const randomFoodParagraf = document.createElement("p");
 const savedBeerBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
 const savedBeerBox = document.querySelector("#fav-list") as HTMLDivElement;
-const savedBeerUl= document.querySelector(".fav-ul") as HTMLUListElement;
+const savedBeerUl = document.querySelector(".fav-ul") as HTMLUListElement;
+
+const loadingGif = document.querySelector(".loadingGif") as HTMLDivElement;  
 
 /* === Save beer info === */ 
 interface Card {
@@ -64,11 +66,11 @@ function remakeString(str:string):string{
 
 /* === Takes the user input when searching for food / click the random food option === */
 async function foodSearch(foodName:string){
-
     let foodString = remakeString(foodName);
 
     getBeerData("?food=", foodString).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
+        loadingGif.style.display = "block";
         createCard(beer, arrLength);
     });
 }
@@ -77,6 +79,8 @@ async function foodSearch(foodName:string){
 let foodArr: string[]= [];
 function createCard(beer: RootObject[], arrLength:number){ 
     hideContent(cardWrapper);
+
+    loadingGif.classList.remove("loadingGif");
     for (let i = 0; i < arrLength; i++) {
 
         foodArr = [];
@@ -170,7 +174,6 @@ beerSelect.addEventListener("change", async(event)=>{
 // Dropdown that toggle between the API-pages of all beers
 selectedPageList.addEventListener("change", async(event)=>{
     event.preventDefault();
-    hideContent(beerSelect);
     getNameOfBeer(selectedPageList.value);
 });
 
