@@ -239,9 +239,9 @@ function showLikedList (){
 
             const moreInfoList = document.createElement("div");
             moreInfoList.innerHTML = `
-                <p>Tagline: ${likedArr[i].tagline}</p> 
-                <p>Description: ${likedArr[i].description}</p> 
-                <p>Food: ${likedArr[i].food_pairing}</p>
+                <p>${likedArr[i].tagline}</p> 
+                <p>${likedArr[i].description}</p> 
+                <p>Goes well with: ${likedArr[i].food_pairing}</p>
             `;
 
             const showLessBtn = document.createElement("button");

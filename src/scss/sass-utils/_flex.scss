@@ -1,25 +1,27 @@
-
-
-header{
+@mixin baseFlex(){
     display: flex;
     justify-content: center;
+}
+
+header{
+    @include baseFlex();
     align-items: center;
 }
 main{
     .nav-wrapper{
         section{
-            display: flex;
-            justify-content: center;
+            @include baseFlex();
         }
     }
+    .food-answer{
+        @include baseFlex();
+    }
     #content-box{
-        display: flex;
-        justify-content: center;
+        @include baseFlex();
         flex-wrap: wrap;
         .beerCard{
             h3{
-                display: flex;
-                justify-content: center;
+                @include baseFlex();
             }
         }    
     }
@@ -30,7 +32,6 @@ main{
         align-items: center;
     }
 }  
-
 footer{
     display: flex;
     justify-content: flex-end;

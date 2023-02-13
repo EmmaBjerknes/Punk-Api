@@ -14,9 +14,9 @@ $font-size-s: medium;
 
 
 
-@mixin set-margin-padding($x){
+@mixin set-margin-padding($x, $y){
     margin: $x;
-    padding: $x;
+    padding: $y;
 }
 
 @mixin loadingGifSize(){
