@@ -103,7 +103,7 @@ function createCard(beer: RootObject[], arrLength:number){
         </span>`;
 
         if(beer[i].image_url === null){
-            cardImg.alt = "Oh, there is no img to this beer"
+            cardImg.alt = "No img found";
         }else{
             cardImg.src = `${beer[i].image_url}`;
         }
@@ -221,12 +221,9 @@ function showLikedList (){
         favLi.innerText = likedArr[i].name;
 
         if(likedArr[i].img === null){
-            favLiImg.alt = "No img found"
+            favLiImg.alt = "No img found";
         }else{
             favLiImg.src = `${likedArr[i].img}`;
-            // toggle class 
-            favLiImg.style.height= "100px";
-            favLiImg.style.width = "30px";
         }
     
         favLi.append(favLiImg);
@@ -249,7 +246,7 @@ function showLikedList (){
 
             const showLessBtn = document.createElement("button");
             showLessBtn.innerHTML = "Show less";
-            favLi.append(moreInfoList, showLessBtn);
+            favLi.append(showLessBtn, moreInfoList);
 
             showLessBtn.addEventListener('click', (event)=>{
                 event.preventDefault();
