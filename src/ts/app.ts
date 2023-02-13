@@ -60,7 +60,7 @@ function hideContent(...elements: HTMLElement[]):void{
 
 /* === Takes an food input/ food search and makes it so i can use it for a fetch ===*/
 function remakeString(str:string):string{
-    const sliced = str.replace(" ", "_");
+    const sliced = str.replace(/ /g, "_");
     return sliced
 };
 
@@ -165,7 +165,16 @@ searchButton.addEventListener("click",async (event) => {
 beerSelect.addEventListener("change", async(event)=>{
     event.preventDefault();
     hideContent(savedBeerBox, randomFoodParagraf);
-    getBeerData("?beer_name=", beerSelect.value).then((beer: RootObject[])=>{
+
+    let beerName:string = beerSelect.value;
+
+    if(beerName === "Tokyo*"){beerName = "Tokyo";}
+    else if(beerName === "#Mashtag 2013"){beerName = "Mashtag 2013";}
+    else if(beerName === "#Mashtag 2014"){beerName = "Mashtag 2014";}
+    else if(beerName === "#Mashtag 2015"){beerName = "Mashtag 2015";}
+    else if(beerName === "#Mashtag 2016"){beerName = "Mashtag 2016";}
+    remakeString(beerName);
+    getBeerData("?beer_name=", beerName).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
         createCard(beer, arrLength);
     });
