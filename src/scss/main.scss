@@ -6,11 +6,15 @@
     box-sizing: border-box;
     font-family: $font-fam-main;
 }
+button{
+    cursor: pointer;
+    border: 0;
+}
 
 header{
     text-align: center;
     padding: 20px;
-    box-shadow: 0px 1px 14px 0px grey;
+    box-shadow: 0px 1px 14px 0px rgb(0 0 0 / 0.4);
     h1{
         font-family: $font-fam-head;
         font-size: $font-size-header;
@@ -33,8 +37,8 @@ header{
     z-index: 10;
     top: 50%;
     left: 50%;
-    border: 16px solid $cyan-hl;
-    border-top: 16px solid $cyan-highL-dark;
+    border: 16px solid $load-bgr-p;
+    border-top: 16px solid $load-bgr-s;
     border-radius: 50%;
     @include loadingGifSize();
     animation: spin 2s linear infinite;
@@ -44,23 +48,16 @@ header{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-button{
-    cursor: pointer;
-    border: 0;
-}
-
-    
+  
 main{
     margin: 40px 0px;
     .nav-wrapper{
-        box-shadow: 0px 8px 7px 0px grey;
         @include set-margin-padding (0px, 0px);
-    
         font-size: $font-size-s;
         fieldset{
             @include set-margin-padding(10px, 10px);
+            @include baseShadow();
             border: none;
-            box-shadow: 0px 9px 7px 0px grey;
             border-radius: 5px;
             &>*{
                 font-size: $font-size-s;
@@ -72,22 +69,22 @@ main{
         }
     }
     .food-answer{
-        font-family: $font-fam-head;
         font-size: $font-size-l;
     }
     #content-box{
-        @include set-margin-padding(0px, 0px);
         .beerCard{
             @include set-margin-padding(10px, 5px);
-            max-width: 360px;
-            box-shadow: 0px 9px 7px 0px grey;
+            @include baseShadow();
+            max-width: 380px;
             background-color: $card-bgr;
-            h3{
-                font-family: $font-fam-main;
-            }
             img{
-                height: 250px;
-                aspect-ratio: .4;
+                height: $card-img-h;
+            }
+            .cardTagline{
+                font-style: $card-tagline;
+            }
+            .cardFood{
+                font-weight: $card-food;
             }
         }    
     }
@@ -95,24 +92,32 @@ main{
         margin: 0 auto;
         max-width: 80%;
         #fav-list{
-            width: auto;
+            @include baseShadow();
             background: $card-bgr;
             padding: 20px;
             display: none;
-            box-shadow: 0px 9px 7px 0px grey;
+            width: fit-content;
             li{
                 font-size: x-large;
-                margin: 10px;
+                @include set-margin-padding(5px, 10px);
                 border-bottom: black 2px solid;
                 img{
-                    height: 150px;
-                    aspect-ratio: .4;
+                    height: $list-img-h;
                 }
                 &>*{
                     margin: 0px 10px;
                 }
                 div{
                     font-size: medium;
+                    p{
+                        padding: 5px;
+                    }
+                    :first-child{
+                        font-style: $card-tagline;
+                    }
+                    :last-child{
+                        font-weight: $card-food;
+                    }
                 }
             }
         }
@@ -121,30 +126,31 @@ main{
 
 .nav-wrapper, #fav-wrapper {
     button{
+        @include set-margin-padding(10px, 10px);
         border-radius: 30px;
         background: $btn-bg;
         color: white;
-        @include set-margin-padding(10px, 10px);
         &:hover{
             background: $btn-bg-hov;
         }
     }
 }
 
-.beerCard > button,
-footer > button{
-    background: none;
-    .material-symbols-outlined{
-        font-size: 40px;
-        padding: .5vw;
-        border-radius: 50%;
-        background: $blue-hl-prim;
-        box-shadow: 0px 3px 6px rgba(0,0,0,0.6);
-        transition: transform ease 0.5s, box-shadow ease 0.5s;
-        &:hover{
-            background: $blue-hl-sec;
-            transform: translateY(-3px);
-            box-shadow: 0px 6px 10px 2px rgba(0,0,0,0.25);
+.beerCard, footer { 
+    button{
+        background: none;
+        .material-symbols-outlined{
+            font-size: 40px;
+            padding: .5vw;
+            border-radius: 50%;
+            background: $like-btn-bgr;
+            box-shadow: 0px 3px 6px rgba(0,0,0,0.6);
+            transition: transform ease 0.5s, box-shadow ease 0.5s;
+            &:hover{
+                background: $like-btn-bgr-hov;
+                transform: translateY(-3px);
+                box-shadow: 0px 6px 10px 2px rgba(0,0,0,0.25);
+            }
         }
     }
 }
@@ -166,18 +172,18 @@ footer{
     main{
         .nav-wrapper{
             @include set-margin-padding (0px, 10px);
-            font-size: $font-size-l;
+            font-size: $font-size-l;  
             fieldset{
                 &>*{
                     font-size: $font-size-m;
                 }
             }  
         }
-    }
-    #content-box{
-        @include set-margin-padding(10px, 10px);
-    }
-    li{
-        width: 550px;
+        #content-box{
+            @include set-margin-padding(10px, 10px);
+        }
+        li{
+            width: 550px;
+        }
     }
 }

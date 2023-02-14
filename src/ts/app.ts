@@ -120,7 +120,7 @@ function createCard(beer: RootObject[], arrLength:number){
                 cardFood.innerHTML += "";
             }else{
                 cardFood.innerHTML += `${beer[i].food_pairing[x]} </br>`; 
-                foodArr.push(beer[i].food_pairing[x]);             
+                foodArr.push(` ${beer[i].food_pairing[x]}`);             
             }
         }
         beerCard.append(cardHeader, saveBeerBtn, cardTagline, cardDesc, cardFood, cardImg);      

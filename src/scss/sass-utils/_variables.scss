@@ -11,7 +11,13 @@ $font-size-l: x-large;
 $font-size-m: large;
 $font-size-s: medium;
 
+$card-tagline: italic;
+$card-food: bold;
 
+$card-img-h: 250px;
+$list-img-h: 150px;
+
+$main-shadow: 0px 9px 7px 0px; 
 
 
 @mixin set-margin-padding($x, $y){
@@ -22,4 +28,8 @@ $font-size-s: medium;
 @mixin loadingGifSize(){
     height: 120px;
     width: 120px;
+}
+
+@mixin baseShadow{
+    box-shadow: 0px 9px 7px 0px rgb(0 0 0 / 0.4);
 }
