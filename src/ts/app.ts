@@ -217,7 +217,8 @@ function showLikedList(){
     for(let i= 0; i< likedArr.length; i++){
         const favLi = document.createElement("li");
         const favLiImg = document.createElement("img") as HTMLImageElement;
-        favLi.innerText = likedArr[i].name;
+        const favHead = document.createElement("p");
+        favHead.innerText = likedArr[i].name;
 
         if(likedArr[i].img === null){
             favLiImg.alt = "No img found";
@@ -227,12 +228,14 @@ function showLikedList(){
         }
     
         const showMoreBtn = document.createElement("button");
+        showMoreBtn.className = "contBtn";
         showMoreBtn.innerText ="Show more";
 
         const removeBtn= document.createElement("button");
-        removeBtn.innerText ="X";
+        removeBtn.className= "delBtn"; 
+        removeBtn.innerHTML = `<span class="material-symbols-outlined">delete</span>`;
 
-        favLi.append(favLiImg, showMoreBtn, removeBtn);
+        favLi.append(favHead, favLiImg, removeBtn, showMoreBtn);
         savedBeerUl.append(favLi);
 
         showMoreBtn.addEventListener('click', (event)=>{
@@ -247,6 +250,7 @@ function showLikedList(){
             `;
 
             const showLessBtn = document.createElement("button");
+            showLessBtn.className = "contBtn";
             showLessBtn.innerHTML = "Show less";
             favLi.append(showLessBtn, moreInfoList);
 

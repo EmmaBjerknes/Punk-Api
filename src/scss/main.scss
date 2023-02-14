@@ -97,6 +97,9 @@ main{
             padding: 20px;
             display: none;
             width: fit-content;
+            h3{
+                text-align: center;
+            }
             li{
                 font-size: x-large;
                 @include set-margin-padding(5px, 10px);

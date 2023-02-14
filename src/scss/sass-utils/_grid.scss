@@ -55,6 +55,32 @@ main{
             }
         }    
     }
+    li{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(3,1fr);
+        align-items: center;
+        row-gap: 10px;
+        p{
+            grid-column: 2 / span 3;
+            grid-row: 2;
+        }
+        img{
+            grid-column: 1;
+            grid-row: 1 / span 3;
+        }
+        .delBtn{
+            grid-row: 1;
+            grid-column: 4;
+        }
+        .contBtn{
+            grid-row: 3;
+            grid-column: 2 / span 2;
+        }
+        div{
+            grid-column: 1 / span 4;
+        }
+    }
 }  
 
 @media screen and (min-width: 700px) {
