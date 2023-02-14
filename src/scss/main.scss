@@ -70,6 +70,7 @@ main{
     }
     .food-answer{
         font-size: $font-size-l;
+        text-align: center;
     }
     #content-box{
         .beerCard{
@@ -77,6 +78,9 @@ main{
             @include baseShadow();
             max-width: 380px;
             background-color: $card-bgr;
+            h3{
+                text-align: center;
+            }
             img{
                 height: $card-img-h;
             }
@@ -99,9 +103,10 @@ main{
             width: fit-content;
             h3{
                 text-align: center;
+                font-size: $font-size-m;
             }
             li{
-                font-size: x-large;
+                font-size: $font-size-m;
                 @include set-margin-padding(5px, 10px);
                 border-bottom: black 2px solid;
                 img{
@@ -185,8 +190,16 @@ footer{
         #content-box{
             @include set-margin-padding(10px, 10px);
         }
-        li{
-            width: 550px;
+        #fav-wrapper{
+            #fav-list{
+                h3{
+                    font-size: $font-size-l;
+                }
+                li{
+                    font-size: $font-size-l;
+                    width: 550px;
+                }
+            }
         }
     }
 }

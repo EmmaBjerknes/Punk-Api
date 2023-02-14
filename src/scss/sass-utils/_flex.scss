@@ -14,21 +14,8 @@ main{
             @include baseFlex();
         }
     }
-    .food-answer{
-        @include baseFlex();
-    }
     #content-box{
         @include baseFlex();
-        flex-wrap: wrap;
-        .beerCard{
-            h3{
-                @include baseFlex();
-            }
-        }    
+        flex-wrap: wrap;   
     }
 }  
-footer{
-    display: flex;
-    justify-content: flex-end;
-    align-self: flex-end;
-}
