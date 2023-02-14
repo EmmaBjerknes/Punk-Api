@@ -6,6 +6,7 @@
 header{
     @include baseFlex();
     align-items: center;
+    position: relative;
 }
 main{
     .nav-wrapper{

@@ -2,17 +2,29 @@
 @use 'sass-utils' as *;
 
 * {
-    @include set-margin-padding(0px);
+    @include set-margin-padding(0px, 0px);
     box-sizing: border-box;
+    font-family: $font-fam-main;
 }
 
 header{
-    @include set-margin-padding(10px);
     text-align: center;
+    padding: 20px;
+    box-shadow: 0px 1px 14px 0px grey;
     h1{
         font-family: $font-fam-head;
         font-size: $font-size-header;
         word-break: break-word;
+    }
+    img{
+        position: absolute;
+        opacity: .4;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
     }
 }
 
@@ -42,23 +54,33 @@ main{
     margin: 40px 0px;
     .nav-wrapper{
         box-shadow: 0px 8px 7px 0px grey;
-        @include set-margin-padding (0px);
+        @include set-margin-padding (0px, 0px);
     
         font-size: $font-size-s;
         fieldset{
-            @include set-margin-padding(10px);
-            height: fit-content;
+            @include set-margin-padding(10px, 10px);
+            border: none;
+            box-shadow: 0px 9px 7px 0px grey;
+            border-radius: 5px;
             &>*{
                 font-size: $font-size-s;
             }
+            #random-food-button{
+                display: block;
+                margin: 0 auto;
+            }
         }
     }
+    .food-answer{
+        font-family: $font-fam-head;
+        font-size: $font-size-l;
+    }
     #content-box{
-        @include set-margin-padding(0px);
+        @include set-margin-padding(0px, 0px);
         .beerCard{
-            @include set-margin-padding(5px);
+            @include set-margin-padding(10px, 5px);
             max-width: 360px;
-            border: 2px solid black;
+            box-shadow: 0px 9px 7px 0px grey;
             background-color: $card-bgr;
             h3{
                 font-family: $font-fam-main;
@@ -77,6 +99,7 @@ main{
             background: $card-bgr;
             padding: 20px;
             display: none;
+            box-shadow: 0px 9px 7px 0px grey;
             li{
                 font-size: x-large;
                 margin: 10px;
@@ -101,7 +124,7 @@ main{
         border-radius: 30px;
         background: $btn-bg;
         color: white;
-        @include set-margin-padding(10px);
+        @include set-margin-padding(10px, 10px);
         &:hover{
             background: $btn-bg-hov;
         }
@@ -139,21 +162,20 @@ footer{
 }
 
 
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 700px) {
     main{
         .nav-wrapper{
-            @include set-margin-padding (10px);
+            @include set-margin-padding (0px, 10px);
             font-size: $font-size-l;
             fieldset{
-                height: fit-content;
                 &>*{
-                    font-size: large;
+                    font-size: $font-size-m;
                 }
             }  
         }
     }
     #content-box{
-        @include set-margin-padding(10px);
+        @include set-margin-padding(10px, 10px);
     }
     li{
         width: 550px;
