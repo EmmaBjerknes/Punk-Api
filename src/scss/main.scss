@@ -130,6 +130,13 @@ main{
             }
         }
     }
+    img:not([alt]){
+        transition: transform ease 0.5s;
+        &:hover{
+            cursor: zoom-in;
+            transform: translateX(-20px)scale(1.5);
+        }
+    }
 }  
 
 .nav-wrapper, #fav-wrapper {
