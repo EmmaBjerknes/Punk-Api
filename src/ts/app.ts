@@ -168,12 +168,10 @@ beerSelect.addEventListener("change", async(event)=>{
     hideContent(savedBeerBox, randomFoodParagraf);
 
     let beerName:string = beerSelect.value;
-
-    if(beerName === "Tokyo*"){beerName = "Tokyo";}
-    else if(beerName === "#Mashtag 2013"){beerName = "Mashtag 2013";}
-    else if(beerName === "#Mashtag 2014"){beerName = "Mashtag 2014";}
-    else if(beerName === "#Mashtag 2015"){beerName = "Mashtag 2015";}
-    else if(beerName === "#Mashtag 2016"){beerName = "Mashtag 2016";}
+    const specialChar = /[&*#%]/; // define regex-pattern
+    if(specialChar.test(beerName)){
+        beerName = beerName.replace(specialChar, "");
+    }
     remakeString(beerName);
     getBeerData("?beer_name=", beerName).then((beer: RootObject[])=>{
         const arrLength : number = beer.length;
