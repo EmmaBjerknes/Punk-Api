@@ -1,6 +1,6 @@
 # Project Punk-Api
 
-<img src="app.jpg" alt="App screenshot">
+<img src="src/img/app.jpg" alt="App screenshot">
 
 ## Beer & Bites: A Match Made in Heaven
 In this app, you can search for which beer pairs well with a desired dish. Unsure of what to eat? You can of course receive suggestions here! If you want to browse through all the beers available in Brewdog's DIY Dog, you can easily do so using a dropdown menu. And of course, you can add every beer you like to a personal list.  
