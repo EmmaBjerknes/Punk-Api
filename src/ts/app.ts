@@ -208,11 +208,12 @@ randFoodButton.addEventListener("click", async (event)=>{
 savedBeerBtn.addEventListener("click", async (event)=>{
     event.preventDefault();
     hideContent(cardWrapper, savedBeerUl, randomFoodParagraf,savedBeerBox);
-    savedBeerBox.style.display = "block";
+
     showLikedList();
 }); 
 
-function showLikedList (){
+function showLikedList(){
+    savedBeerBox.style.display = "block";
     for(let i= 0; i< likedArr.length; i++){
         const favLi = document.createElement("li");
         const favLiImg = document.createElement("img") as HTMLImageElement;
@@ -220,16 +221,19 @@ function showLikedList (){
 
         if(likedArr[i].img === null){
             favLiImg.alt = "No img found";
+            favLiImg.style.width= "65px";
         }else{
             favLiImg.src = `${likedArr[i].img}`;
         }
     
-        favLi.append(favLiImg);
-        savedBeerUl.append(favLi);
-
         const showMoreBtn = document.createElement("button");
         showMoreBtn.innerText ="Show more";
-        favLi.append(showMoreBtn);
+
+        const removeBtn= document.createElement("button");
+        removeBtn.innerText ="X";
+
+        favLi.append(favLiImg, showMoreBtn, removeBtn);
+        savedBeerUl.append(favLi);
 
         showMoreBtn.addEventListener('click', (event)=>{
             event.preventDefault();
@@ -252,6 +256,12 @@ function showLikedList (){
                 favLi.removeChild(moreInfoList);
                 favLi.append(showMoreBtn);
             });
+        });
+        removeBtn.addEventListener('click', (event)=>{
+            event.preventDefault();
+            likedArr = likedArr.filter(object => object.name !== likedArr[i].name);
+            hideContent(savedBeerUl);
+            showLikedList();
         });
     }
 };
