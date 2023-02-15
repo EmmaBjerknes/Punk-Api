@@ -184,6 +184,12 @@ footer{
 
 
 @media screen and (min-width: 700px) {
+    header{
+        padding: 40px;
+        h1{
+            font-size: 9vh;
+        }
+    }
     main{
         .nav-wrapper{
             @include set-margin-padding (0px, 10px);

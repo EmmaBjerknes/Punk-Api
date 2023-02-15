@@ -9,7 +9,7 @@ const cardWrapper = document.querySelector("#content-box") as HTMLElement;
 const cardsHeader = document.querySelector(".food-answer") as HTMLElement;
 const beerSelect = document.querySelector("#beerName") as HTMLSelectElement;
 const selectedPageList = document.querySelector("#pageList") as HTMLSelectElement;
-const randomFoodParagraf = document.createElement("p");
+const randomFoodParagraf = document.createElement("p") as HTMLParagraphElement;
 const savedBeerBtn = document.querySelector(".fav-btn") as HTMLButtonElement;
 const savedBeerBox = document.querySelector("#fav-list") as HTMLDivElement;
 const savedBeerUl = document.querySelector(".fav-ul") as HTMLUListElement;
@@ -114,7 +114,6 @@ function createCard(beer: RootObject[], arrLength:number){
 
         // change to check length of food_pairing array
         const foodArrLength = beer[i].food_pairing.length;
-
         for(let x = 0; x < foodArrLength; x++){
             if(beer[i].food_pairing[x] === undefined){
                 cardFood.innerHTML += "";
@@ -126,8 +125,7 @@ function createCard(beer: RootObject[], arrLength:number){
         beerCard.append(cardHeader, saveBeerBtn, cardTagline, cardDesc, cardFood, cardImg);      
         cardWrapper.append(beerCard);
  
-        saveBeerBtn.addEventListener('click', (event) =>{
-            event.preventDefault();
+        saveBeerBtn.addEventListener('click', () =>{
             pushIt(beer[i].name, beer[i].image_url, beer[i].tagline, beer[i].description, foodArr);
             saveBeerBtn.innerText = "Saved";
             saveBeerBtn.disabled = true;
@@ -152,8 +150,7 @@ async function getNameOfBeer(x: string) {
 
 /* === EventListeners === */
 // free text search for food
-searchButton.addEventListener("click",async (event) => {
-    event.preventDefault();
+searchButton.addEventListener("click",async () => {
     hideContent(cardWrapper, savedBeerBox, randomFoodParagraf);
     if(inputQueryString.value.length > 0){
         foodSearch(inputQueryString.value);
@@ -162,9 +159,8 @@ searchButton.addEventListener("click",async (event) => {
     };
 });
 
-// Dropdown that shows the name of the beers
-beerSelect.addEventListener("change", async(event)=>{
-    event.preventDefault();
+// === Dropdown that shows the name of the beers ===
+beerSelect.addEventListener("change", async()=>{
     hideContent(savedBeerBox, randomFoodParagraf);
 
     let beerName:string = beerSelect.value;
@@ -179,15 +175,13 @@ beerSelect.addEventListener("change", async(event)=>{
     });
 });
 
-// Dropdown that toggle between the API-pages of all beers
-selectedPageList.addEventListener("change", async(event)=>{
-    event.preventDefault();
+// === Dropdown that toggle between the API-pages of all beers ===
+selectedPageList.addEventListener("change", async()=>{
     getNameOfBeer(selectedPageList.value);
 });
 
-// Gives a random food option 
-randFoodButton.addEventListener("click", async (event)=>{
-    event.preventDefault();
+// === Gives a random food option === 
+randFoodButton.addEventListener("click", async ()=>{
     hideContent(savedBeerBox);
     let foodSugg: string;
 
@@ -203,20 +197,18 @@ randFoodButton.addEventListener("click", async (event)=>{
     });
 });
 
-// Start of showing saved beer 
-// remove -> remove from array Card
-savedBeerBtn.addEventListener("click", async (event)=>{
-    event.preventDefault();
+// === Start of showing saved beer ===
+savedBeerBtn.addEventListener("click", async ()=>{
     hideContent(cardWrapper, savedBeerUl, randomFoodParagraf,savedBeerBox);
-
     showLikedList();
 }); 
 
+// === Print list cards saved beer ===
 function showLikedList(){
     savedBeerBox.style.display = "block";
     for(let i= 0; i< likedArr.length; i++){
         const favLi = document.createElement("li");
-        const favLiImg = document.createElement("img") as HTMLImageElement;
+        const favLiImg = document.createElement("img");
         const favHead = document.createElement("p");
         favHead.innerText = likedArr[i].name;
 
@@ -238,8 +230,7 @@ function showLikedList(){
         favLi.append(favHead, favLiImg, removeBtn, showMoreBtn);
         savedBeerUl.append(favLi);
 
-        showMoreBtn.addEventListener('click', (event)=>{
-            event.preventDefault();
+        showMoreBtn.addEventListener('click', ()=>{
             favLi.removeChild(showMoreBtn);
 
             const moreInfoList = document.createElement("div");
@@ -254,15 +245,13 @@ function showLikedList(){
             showLessBtn.innerHTML = "Show less";
             favLi.append(showLessBtn, moreInfoList);
 
-            showLessBtn.addEventListener('click', (event)=>{
-                event.preventDefault();
+            showLessBtn.addEventListener('click', ()=>{
                 favLi.removeChild(showLessBtn);
                 favLi.removeChild(moreInfoList);
                 favLi.append(showMoreBtn);
             });
         });
-        removeBtn.addEventListener('click', (event)=>{
-            event.preventDefault();
+        removeBtn.addEventListener('click', ()=>{
             likedArr = likedArr.filter(object => object.name !== likedArr[i].name);
             hideContent(savedBeerUl);
             showLikedList();
