@@ -29,7 +29,8 @@ cd Punk-Api
 
 3) Install dev dependencies:
 ```
-npm install
+npm install   
+npm install sass
 ```  
 
 4) Start the dev server that will watch for saved changes to your SCSS-files and TS-files:
